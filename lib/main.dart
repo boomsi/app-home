@@ -1,5 +1,6 @@
 import 'package:demo/controller/home.dart';
 import 'package:demo/controller/profile.dart';
+import 'package:demo/pages/group_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
 class RouteGet {
   static const String home = '/';
   static const String detail = '/detail';
+  static const String groupDetail = '/group/detail';
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -40,6 +42,7 @@ class RouteGet {
           Get.put<HomeController>(HomeController());
           Get.put<ProfileController>(ProfileController());
         })),
-    GetPage(name: detail, page: () => DetailPage())
+    GetPage(name: detail, page: () => DetailPage()),
+    GetPage(name: groupDetail, page: () => GroupDetailPage())
   ];
 }

@@ -1,12 +1,14 @@
+import 'package:demo/controller/card_block.dart';
 import 'package:demo/controller/home.dart';
 import 'package:demo/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CardBlockWidget extends StatelessWidget {
-  const CardBlockWidget({Key? key, required this.data}) : super(key: key);
+  CardBlockWidget({Key? key, required this.data}) : super(key: key);
 
   final BaseData data;
+  final CardBlockController c = Get.put(CardBlockController());
 
   Widget _buildHead() {
     return Container(
@@ -32,17 +34,27 @@ class CardBlockWidget extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        data.title,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                      GestureDetector(
+                        onTap: () {
+                          c.jumpToGroupDetail(id: data.groupId);
+                        },
+                        child: Text(
+                          data.title,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
                       ),
-                      Text(
-                        data.subtitle,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                            fontSize: 14, color: ColorStore.usualGreyColor),
+                      GestureDetector(
+                        onTap: () {
+                          // c.jumpToGroupDetail(id: data.groupId);
+                        },
+                        child: Text(
+                          data.subtitle,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              fontSize: 14, color: ColorStore.usualGreyColor),
+                        ),
                       )
                     ]),
               )),
@@ -81,7 +93,7 @@ class CardBlockWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/detail');
+        c.jumpToDetail(id: data.id);
       },
       child: Container(
           color: ColorStore.usualBK,
