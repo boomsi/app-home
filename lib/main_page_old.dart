@@ -10,23 +10,29 @@ class MainPage extends StatelessWidget {
   MainPage({super.key});
   final MainController c = Get.put(MainController(), tag: 'main');
 
-  BottomNavigationBarItem _buildBottomNavigationItem(
-      {required IconData icon, required title}) {
-    return BottomNavigationBarItem(icon: Icon(icon), label: title);
+  Widget _buildNavigationBar(
+      {required IconData icon,
+      required IconData selectedIcon,
+      required String label}) {
+    return NavigationDestination(
+        icon: Icon(icon), label: label, selectedIcon: Icon(selectedIcon));
   }
 
   Widget _buildBottomNavigationBar() {
-    return Obx(() => BottomNavigationBar(
-          items: [
-            _buildBottomNavigationItem(
-                icon: Icons.home, title: bottomItemNames[BottomItemTitle.home]),
-            _buildBottomNavigationItem(
-                icon: Icons.manage_accounts,
-                title: bottomItemNames[BottomItemTitle.self]),
+    return Obx(() => NavigationBar(
+          destinations: [
+            _buildNavigationBar(
+                icon: Icons.home_outlined,
+                label: bottomItemNames[BottomItemTitle.home]!,
+                selectedIcon: Icons.home),
+            _buildNavigationBar(
+                icon: Icons.manage_accounts_outlined,
+                label: bottomItemNames[BottomItemTitle.self]!,
+                selectedIcon: Icons.manage_accounts_sharp),
           ],
-          onTap: c.changeBottomRoute,
-          selectedItemColor: Colors.blue,
-          currentIndex:
+          onDestinationSelected: c.changeBottomRoute,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          selectedIndex:
               BottomItemTitle.values.indexOf(c.currenBottomNavigationBar.value),
         ));
   }

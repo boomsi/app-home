@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:demo/controller/card_block.dart';
 import 'package:demo/controller/home.dart';
 import 'package:demo/utils/color.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:demo/widgets/more_options_bottom_sheet.dart';
 
 class CardBlockWidget extends StatelessWidget {
   CardBlockWidget({Key? key, required this.data}) : super(key: key);
@@ -10,7 +12,7 @@ class CardBlockWidget extends StatelessWidget {
   final BaseData data;
   final CardBlockController c = Get.put(CardBlockController());
 
-  Widget _buildHead() {
+  Widget _buildHead(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: Row(
@@ -58,9 +60,12 @@ class CardBlockWidget extends StatelessWidget {
                       )
                     ]),
               )),
-          Container(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: const Icon(Icons.more_horiz),
+          MoreOptionsBottomSheet(
+            childList: [
+              BottomChild(title: '投诉', onPress: () {}),
+              BottomChild(title: '不想看', onPress: () {}),
+              BottomChild(title: '收藏', onPress: () {}),
+            ],
           )
         ],
       ),
@@ -104,7 +109,7 @@ class CardBlockWidget extends StatelessWidget {
               // height: 200,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [_buildHead(), _buildBody(), _buildFoot()],
+                children: [_buildHead(context), _buildBody(), _buildFoot()],
               ))),
     );
   }
